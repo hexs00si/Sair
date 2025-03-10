@@ -8,9 +8,9 @@ struct LoginView: View {
         ZStack {
             Color.backgroundCream.ignoresSafeArea()
             
-            VStack(spacing: 25) {
-                // Logo and app title
-                VStack(spacing: 15) {
+            VStack(spacing: 30) {
+                // Logo and App Title
+                VStack(spacing: 12) {
                     Image(systemName: "figure.hiking")
                         .resizable()
                         .scaledToFit()
@@ -18,23 +18,23 @@ struct LoginView: View {
                         .foregroundColor(.primaryGreen)
                     
                     Text("Sair")
-                        .font(.system(size: 40, weight: .bold))
+                        .font(.system(size: 38, weight: .bold))
                         .foregroundColor(.primaryGreen)
                     
                     Text("Explore • Create • Connect")
                         .font(.subheadline)
                         .foregroundColor(Color.primaryGreen.opacity(0.8))
                 }
-                .padding(.top, 50)
+                .padding(.top, 40)
                 
-                // Form fields with improved styling
-                VStack(spacing: 20) {
+                // Input Fields
+                VStack(spacing: 18) {
                     if !viewModel.isLogin {
                         TextField("Username", text: $viewModel.username)
                             .padding()
                             .background(Color.white)
-                            .cornerRadius(10)
-                            .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+                            .cornerRadius(12)
+                            .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 2)
                             .autocapitalization(.none)
                         
                         // Gender selection
@@ -58,16 +58,16 @@ struct LoginView: View {
                     TextField("Email", text: $viewModel.email)
                         .padding()
                         .background(Color.white)
-                        .cornerRadius(10)
-                        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+                        .cornerRadius(12)
+                        .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 2)
                         .keyboardType(.emailAddress)
                         .autocapitalization(.none)
                     
                     SecureField("Password", text: $viewModel.password)
                         .padding()
                         .background(Color.white)
-                        .cornerRadius(10)
-                        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+                        .cornerRadius(12)
+                        .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 2)
                     
                     if !viewModel.errorMessage.isEmpty {
                         Text(viewModel.errorMessage)
@@ -76,9 +76,9 @@ struct LoginView: View {
                             .padding(.top, -5)
                     }
                 }
-                .padding(.horizontal, 30)
+                .padding(.horizontal, 32)
                 
-                // Sign in/up button with improved design
+                // Sign In/Up Button with Better Ratio
                 Button(action: {
                     viewModel.authenticate {
                         // Success callback
@@ -89,21 +89,20 @@ struct LoginView: View {
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     } else {
                         Text(viewModel.isLogin ? "Sign In" : "Create Account")
+                            .font(.headline)
                             .fontWeight(.semibold)
                             .frame(maxWidth: .infinity)
-                            .padding()
+                            .frame(height: 50) // Improved height ratio
+                            .background(Color.primaryGreen)
+                            .foregroundColor(.white)
+                            .cornerRadius(14)
+                            .shadow(color: Color.primaryGreen.opacity(0.35), radius: 6, x: 0, y: 3)
                     }
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
-                .background(Color.primaryGreen)
-                .foregroundColor(.white)
-                .cornerRadius(12)
-                .shadow(color: Color.primaryGreen.opacity(0.4), radius: 5, x: 0, y: 3)
-                .padding(.horizontal, 30)
+                .padding(.horizontal, 32)
                 .disabled(viewModel.isLoading)
                 
-                // Toggle button with improved styling
+                // Toggle Button
                 Button(action: {
                     withAnimation {
                         viewModel.isLogin.toggle()
