@@ -1,0 +1,35 @@
+PODS:
+  - MapplsAPICore (1.0.16)
+  - MapplsAPIKit/Base (2.0.30)
+  - MapplsLMS/Base (1.0.6)
+  - MapplsMap (5.13.16):
+    - MapplsMap/Complete (= 5.13.16)
+  - MapplsMap/Base (5.13.16)
+  - MapplsMap/Complete (5.13.16):
+    - MapplsMap/Base
+    - MapplsMap/Dependencies
+  - MapplsMap/Dependencies (5.13.16):
+    - MapplsAPICore (~> 1.0.16)
+    - MapplsAPIKit/Base (~> 2.0.30)
+    - MapplsLMS/Base (~> 1.0.5)
+
+DEPENDENCIES:
+  - MapplsAPICore (= 1.0.16)
+  - MapplsMap (= 5.13.16)
+
+SPEC REPOS:
+  trunk:
+    - MapplsAPICore
+    - MapplsAPIKit
+    - MapplsLMS
+    - MapplsMap
+
+SPEC CHECKSUMS:
+  MapplsAPICore: 922af98586ffbddb054822b302804f77f662fca5
+  MapplsAPIKit: 697b5bfdad8f31965ed142d9e91d9f896ae0c65a
+  MapplsLMS: e74a9047ae1c5a977f61eaaa42ae89a57c499e57
+  MapplsMap: ed09c505e87ba92602ec408ccae222bba68929ad
+
+PODFILE CHECKSUM: a58dbd3cb3a4075c9e7ef99a69cac56aafb5d666
+
+COCOAPODS: 1.16.2
