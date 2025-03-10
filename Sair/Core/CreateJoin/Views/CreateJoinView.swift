@@ -1,7 +1,9 @@
-// Sair/Core/CreateJoin/Views/CreateJoinView.swift
 import SwiftUI
+import MapplsMap
 
 struct CreateJoinView: View {
+    @State private var showQuestCreation = false
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -14,7 +16,7 @@ struct CreateJoinView: View {
                         description: "Design your own adventure for others to enjoy",
                         icon: "plus.circle.fill",
                         action: {
-                            // Create quest action
+                            showQuestCreation = true
                         }
                     )
                     
@@ -24,7 +26,7 @@ struct CreateJoinView: View {
                         description: "Find a quest by code or from your friends",
                         icon: "person.2.fill",
                         action: {
-                            // Join quest action
+                            // Handle join quest action
                         }
                     )
                     
@@ -34,7 +36,7 @@ struct CreateJoinView: View {
                         description: "Discover popular quests created by the community",
                         icon: "globe",
                         action: {
-                            // Community quests action
+                            // Handle community quests action
                         }
                     )
                     
@@ -51,6 +53,9 @@ struct CreateJoinView: View {
                         .font(.headline)
                         .foregroundColor(.primaryGreen)
                 }
+            }
+            .sheet(isPresented: $showQuestCreation) {
+                QuestCreationView()
             }
         }
     }
