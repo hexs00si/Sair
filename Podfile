@@ -7,4 +7,5 @@ target 'Sair' do
   # MapMyIndia SDK pods
   pod 'MapplsAPICore', '1.0.16'
   pod 'MapplsMap', '5.13.16'
+  pod 'MapplsAPIKit', '2.0.30'
 end

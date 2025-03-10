@@ -31,10 +31,10 @@ struct SairApp: App {
         print("DEBUG: Firebase initialized successfully")
         
         // Initialize MapMyIndia SDK
-        MapplsAccountManager.setMapSDKKey("YOUR_MAP_SDK_KEY")
-        MapplsAccountManager.setRestAPIKey("YOUR_REST_API_KEY")
-        MapplsAccountManager.setClientId("YOUR_CLIENT_ID")
-        MapplsAccountManager.setClientSecret("YOUR_CLIENT_SECRET")
+        MapplsAccountManager.setMapSDKKey("28e91e265006517c59793f26bf3d3901")
+        MapplsAccountManager.setRestAPIKey("28e91e265006517c59793f26bf3d3901")
+        MapplsAccountManager.setClientId("96dHZVzsAusEUYIs0lYyowEatqMmPwzsepxX2hfxeyP7LhygBOc5l03hclQpITktkE68urOvdKagQ4TxdDgEAQ==")
+        MapplsAccountManager.setClientSecret("lrFxI-iSEg-109pzoCFaWKKAHmDGHYkIgcKa5DXIGPWkmHr8ML1cSGD6g4PTkuP5wXIhCcLMJGDHXJImAEJFWrtlGEmng9kx")
         print("DEBUG: Mappls keys configured")
     }
 }
