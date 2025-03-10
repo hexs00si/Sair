@@ -63,17 +63,17 @@ struct ProfileView: View {
                                     isUnlocked: true
                                 )
                                 
-                                AchievementCard(
-                                    title: "Quest Creator",
-                                    description: "Create your first quest",
-                                    isUnlocked: false
-                                )
-                                
-                                AchievementCard(
-                                    title: "Adventurer",
-                                    description: "Complete 5 quests",
-                                    isUnlocked: false
-                                )
+//                                AchievementCard(
+//                                    title: "Quest Creator",
+//                                    description: "Create your first quest",
+//                                    isUnlocked: false
+//                                )
+//                                
+//                                AchievementCard(
+//                                    title: "Adventurer",
+//                                    description: "Complete 5 quests",
+//                                    isUnlocked: false
+//                                )
                             }
                             .padding(.horizontal)
                             
