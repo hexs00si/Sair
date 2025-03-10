@@ -1,121 +1,151 @@
-// Sair/Core/Explore/Views/ExploreView.swift
 import SwiftUI
 import MapplsMap
 import CoreLocation
 
 struct ExploreView: View {
+    @StateObject private var weatherService = WeatherService()
     @StateObject private var locationManager = LocationViewModel()
     @State private var mapView: MapplsMapView?
     @State private var mapLoaded = false
-    @State private var showLocationPrompt = false
     
     var body: some View {
         NavigationView {
             ZStack {
                 Color.backgroundCream.ignoresSafeArea()
                 
-                VStack(spacing: 0) {
-                    // Map view
-                    ZStack {
-                        MapViewContainer(mapView: $mapView, onMapLoaded: {
-                            mapLoaded = true
-                        })
-                        .frame(height: 300)
-                        .cornerRadius(20)
+                ScrollView {
+                    VStack(spacing: 20) {
+                        // Greeting card with gradient
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text(weatherService.getTimeBasedGreeting())
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            
+                            Text(weatherService.getTimeBasedSuggestion())
+                                .font(.subheadline)
+                                .foregroundColor(.white.opacity(0.9))
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.vertical, 16)
+                        .padding(.horizontal, 20)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.primaryGreen, Color.primaryGreen.opacity(0.8)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .cornerRadius(16)
+                        .shadow(color: Color.black.opacity(0.15), radius: 8, x: 0, y: 4)
                         .padding(.horizontal)
-                        .padding(.top)
-                        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
                         
-                        // Map loading indicator
-                        if !mapLoaded {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .primaryGreen))
-                                .scaleEffect(1.5)
-                                .frame(width: 50, height: 50)
-                                .background(Color.white.opacity(0.8))
-                                .cornerRadius(10)
-                        }
-                        
-                        // Location button
-                        VStack {
-                            Spacer()
-                            HStack {
-                                Spacer()
-                                Button(action: {
-                                    if let userLocation = locationManager.userLocation {
-                                        mapView?.setCenter(userLocation.coordinate, zoomLevel: 15, animated: true)
-                                    } else {
-                                        showLocationPrompt = true
-                                    }
-                                }) {
-                                    Image(systemName: "location.fill")
-                                        .foregroundColor(.primaryGreen)
-                                        .padding(12)
-                                        .background(Color.white)
-                                        .clipShape(Circle())
-                                        .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 2)
-                                }
-                                .padding(16)
-                            }
-                        }
-                    }
-                    
-                    ScrollView {
-                        VStack(spacing: 20) {
-                            // Dynamic greeting section
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(getTimeBasedGreeting())
+                        // Exploration tips card
+                        HStack(spacing: 15) {
+                            Image(systemName: "map")
+                                .font(.title2)
+                                .foregroundColor(.primaryGreen)
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Exploration Tips")
                                     .font(.headline)
                                     .foregroundColor(.primaryGreen)
                                 
-                                Text("Explore new adventures nearby!")
-                                    .font(.subheadline)
+                                Text("Tap quests to see details, and use the location button to center the map on your position.")
+                                    .font(.caption)
                                     .foregroundColor(.secondary)
-                                    .fixedSize(horizontal: false, vertical: true)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(12)
-                            .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
-                            .padding(.horizontal)
-                            
-                            // Nearby quests section
-                            VStack(alignment: .leading, spacing: 15) {
-                                Text("Quests For You")
-                                    .font(.headline)
-                                    .foregroundColor(.primaryGreen)
-                                    .padding(.horizontal)
-                                
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 15) {
-                                        ForEach(0..<3) { _ in
-                                            QuestCard()
-                                        }
-                                    }
-                                    .padding(.horizontal)
-                                }
+                                    .lineLimit(2)
                             }
                             
-                            // Popular quests
-                            VStack(alignment: .leading, spacing: 15) {
-                                Text("Popular Nearby")
-                                    .font(.headline)
-                                    .foregroundColor(.primaryGreen)
-                                    .padding(.horizontal)
-                                
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 15) {
-                                        ForEach(0..<3) { _ in
-                                            QuestCard()
+                            Spacer()
+                        }
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(16)
+                        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+                        .padding(.horizontal)
+                        
+                        // Map view
+                        ZStack {
+                            MapViewContainer(mapView: $mapView, onMapLoaded: {
+                                mapLoaded = true
+                            })
+                            .frame(height: 250)
+                            .cornerRadius(16)
+                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 3)
+                            
+                            // Map loading indicator
+                            if !mapLoaded {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .primaryGreen))
+                                    .scaleEffect(1.2)
+                                    .frame(width: 50, height: 50)
+                                    .background(Color.white.opacity(0.8))
+                                    .cornerRadius(10)
+                            }
+                            
+                            // Location button
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Spacer()
+                                    Button(action: {
+                                        if let userLocation = locationManager.userLocation {
+                                            mapView?.setCenter(userLocation.coordinate, zoomLevel: 15, animated: true)
                                         }
+                                    }) {
+                                        Image(systemName: "location.fill")
+                                            .foregroundColor(.primaryGreen)
+                                            .padding(12)
+                                            .background(Color.white)
+                                            .clipShape(Circle())
+                                            .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 2)
                                     }
-                                    .padding(.horizontal)
+                                    .padding(.trailing, 16)
+                                    .padding(.bottom, 16)
                                 }
                             }
                         }
-                        .padding(.top)
+                        .padding(.horizontal)
+                        
+                        // Nearby quests section
+                        VStack(alignment: .leading, spacing: 15) {
+                            Text("Quests For You")
+                                .font(.headline)
+                                .foregroundColor(.primaryGreen)
+                                .padding(.horizontal)
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 15) {
+                                    ForEach(0..<3) { _ in
+                                        QuestCard()
+                                    }
+                                }
+                                .padding(.horizontal)
+                            }
+                        }
+                        
+                        // Popular quests
+                        VStack(alignment: .leading, spacing: 15) {
+                            Text("Popular Nearby")
+                                .font(.headline)
+                                .foregroundColor(.primaryGreen)
+                                .padding(.horizontal)
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 15) {
+                                    ForEach(0..<3) { _ in
+                                        QuestCard()
+                                    }
+                                }
+                                .padding(.horizontal)
+                            }
+                        }
+                        
+                        Spacer(minLength: 20)
                     }
+                    .padding(.top)
                 }
             }
             .navigationTitle("Explore")
@@ -128,22 +158,11 @@ struct ExploreView: View {
                 }
             }
             .onAppear {
-                // Initialize Mappls Map SDK
+                // Initialize MapplsMap
                 initializeMapplsMap()
+                
+                // Request location
                 locationManager.requestLocation()
-            }
-            .alert(isPresented: $showLocationPrompt) {
-                Alert(
-                    title: Text("Location Access"),
-                    message: Text("Please enable location services to see your position on the map"),
-                    primaryButton: .default(Text("Settings"), action: {
-                        // Open app settings
-                        if let url = URL(string: UIApplication.openSettingsURLString) {
-                            UIApplication.shared.open(url)
-                        }
-                    }),
-                    secondaryButton: .cancel()
-                )
             }
         }
     }
@@ -156,19 +175,6 @@ struct ExploreView: View {
             } else {
                 print("DEBUG: Map is authorized successfully")
             }
-        }
-    }
-    
-    // Helper to get a greeting based on time of day
-    private func getTimeBasedGreeting() -> String {
-        let hour = Calendar.current.component(.hour, from: Date())
-        
-        if hour >= 0 && hour < 12 {
-            return "Good morning!"
-        } else if hour >= 12 && hour < 17 {
-            return "Good afternoon!"
-        } else {
-            return "Good evening!"
         }
     }
 }
