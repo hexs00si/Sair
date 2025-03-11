@@ -110,38 +110,38 @@ struct ExploreView: View {
                         .padding(.horizontal)
                         
                         // Nearby quests section
-                        VStack(alignment: .leading, spacing: 15) {
-                            Text("Quests For You")
-                                .font(.headline)
-                                .foregroundColor(.primaryGreen)
-                                .padding(.horizontal)
-                            
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 15) {
-                                    ForEach(0..<3) { _ in
-                                        QuestCard()
-                                    }
-                                }
-                                .padding(.horizontal)
-                            }
-                        }
+//                        VStack(alignment: .leading, spacing: 15) {
+//                            Text("Quests For You")
+//                                .font(.headline)
+//                                .foregroundColor(.primaryGreen)
+//                                .padding(.horizontal)
+//                            
+//                            ScrollView(.horizontal, showsIndicators: false) {
+//                                HStack(spacing: 15) {
+//                                    ForEach(0..<3) { _ in
+//                                        QuestCard()
+//                                    }
+//                                }
+//                                .padding(.horizontal)
+//                            }
+//                        }
                         
                         // Popular quests
-                        VStack(alignment: .leading, spacing: 15) {
-                            Text("Popular Nearby")
-                                .font(.headline)
-                                .foregroundColor(.primaryGreen)
-                                .padding(.horizontal)
-                            
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 15) {
-                                    ForEach(0..<3) { _ in
-                                        QuestCard()
-                                    }
-                                }
-                                .padding(.horizontal)
-                            }
-                        }
+//                        VStack(alignment: .leading, spacing: 15) {
+//                            Text("Popular Nearby")
+//                                .font(.headline)
+//                                .foregroundColor(.primaryGreen)
+//                                .padding(.horizontal)
+//                            
+//                            ScrollView(.horizontal, showsIndicators: false) {
+//                                HStack(spacing: 15) {
+//                                    ForEach(0..<3) { _ in
+//                                        QuestCard()
+//                                    }
+//                                }
+//                                .padding(.horizontal)
+//                            }
+//                        }
                         
                         Spacer(minLength: 20)
                     }
